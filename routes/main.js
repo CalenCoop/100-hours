@@ -11,7 +11,9 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-router.get("/profile", ensureAuth, postsController.getProfile);
+router.get("/profile/:id", ensureAuth, postsController.getProfile);
+router.get("/home", ensureAuth, postsController.getHome);
+router.get("/discover", ensureAuth, postsController.getDiscover);
 
 
 module.exports = router
