@@ -1,9 +1,11 @@
 <%- include('partials/header') -%>
+<link href= "../public/css/style.css" rel="stylesheet" type="text/css">
+
 <div class="mt-5">
   <h2>Add a post</h2>
   <form action="/post/createPost" enctype="multipart/form-data" method="POST">
     <div class="mb-3">
-        <label for="comment" class="form-label">Title</label>
+        <label for="comment" class="form-label">Comment</label>
         <input type="text" class="form-control" id="comment" name="comment">
     </div>
     
@@ -19,10 +21,21 @@
       <h1> Hello. This is the main page where all the posts will be.</h1>
       <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
+          <li class="posts pt-3 pb-3">
             <a href="/post/<%= posts[i]._id%>">
+              <h1> <%= posts[i].comment %> </h1>
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
+            <form
+            class="col-1"
+            action="/post/likePost/<%= posts[i]._id %>?_method=PUT"
+            method="POST"
+          >
+            <button class="btn btn-primary fa fa-heart" type="submit"></button>
+          </form>
+          <h3 class="col-3">Likes: <%= posts[i].likes %></h3>
+          
+  
           </li>
         <% } %>
         </ul>

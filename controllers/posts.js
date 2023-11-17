@@ -64,12 +64,39 @@ module.exports = {
               user: req.user.id,
             });
           }
-      
           console.log("Post has been added!");
           res.redirect("/post/" + newPost._id);
         } catch (err) {
           console.log(err);
           res.status(500).send("Internal Server Error");
+        }
+      },
+      likePost: async (req, res) => {
+        try {
+          const postId = req.params.id;
+          const userId = req.user.id;
+
+          const post = await Post.findOne({_id: postId, likedBy: userId});
+          if(post){
+            await Post.findOneAndUpdate(
+              {_id: postId},
+              {$pull: { likedBy: userId }, $inc: { likes: -1 }}
+            )
+            console.log('post unliked')
+          } else {
+            await await Post.findOneAndUpdate(
+              {_id: postId},
+              {$push: { likedBy: userId }, $inc: { likes: 1 }}
+            )
+            console.log('post liked')
+          }
+          //check if theres a referer header in req
+          const referer = req.headers.referer
+          //use referer if avail, otherwise default Url
+          const redirectUrl = referer || '/defaultRedirect'
+          res.redirect(redirectUrl)
+        } catch (err) {
+          console.log(err);
         }
       },
 }
