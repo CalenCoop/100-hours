@@ -17,7 +17,8 @@ module.exports = {
     },
     getHome: async (req, res) => {
         try {
-          const posts = await Post.find().sort({ createdAt: "desc" }).lean();
+          const posts = await Post.find().sort({ createdAt: "desc" }).populate("user").lean();
+          // const user = await User.findById(posts.user)
           res.render("home.ejs", { posts: posts, user: req.user });
         } catch (err) {
           console.log(err);

@@ -1,29 +1,36 @@
 <%- include('partials/header') -%>
 <link href= "../public/css/style.css" rel="stylesheet" type="text/css">
 
-<div class="mt-5">
-  <h2>Add a post</h2>
-  <form action="/post/createPost" enctype="multipart/form-data" method="POST">
+
+
+<div class="formContainer mt-5 mb-3">
+  <form class = "postForm" action="/post/createPost" enctype="multipart/form-data" method="POST">
     <div class="mb-3">
-        <label for="comment" class="form-label">Comment</label>
-        <input type="text" class="form-control" id="comment" name="comment">
+        <label for="comment" class="form-label" text></label>
+        <input class = postInput type="text" class="form-control" id="comment" name="comment" placeholder="What's new?">
     </div>
-    
-    <div class="mb-3">
-      <label for="imgUpload" class="form-label">Image</label>
-      <input type="file" class="form-control" id="imageUpload" name="file">
+    <div class = "postButtons">
+      <div class="mb-3">
+        <label for="imgUpload" class="form-label"></label>
+        <input type="file" class="form-control" id="imageUpload" name="file" style="display: none;">
+        <label for="imageUpload" class= "custom-file-upload">
+          <img src="/imgs/upload.jpg" alt="Choose image" style="width: 30px; height: 30px;">
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary" value="Upload">Post</button>
     </div>
-    <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
   </form>
 </div>
-  <div class="container">
+
+<div class = "centerContainer">
+  <div class="postContainer">
     <div class="row justify-content-center mt-5">
-      <h1> Hello. This is the main page where all the posts will be.</h1>
       <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
           <li class="posts pt-3 pb-3">
-            <a href="/post/<%= posts[i]._id%>">
-              <h1> <%= posts[i].comment %> </h1>
+            <h3><a href="/profile/<%= posts[i].user._id %>"><%= posts[i].user.userName %></a></h3>
+              <a href="/post/<%= posts[i]._id%>">
+              <h1 class="postH1"> <%= posts[i].comment %> </h1>
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
             <form
@@ -31,14 +38,14 @@
             action="/post/likePost/<%= posts[i]._id %>?_method=PUT"
             method="POST"
           >
-            <button class="btn btn-primary fa fa-heart" type="submit"></button>
+            <button class="btn btn-primary fa fa-heart" type="submit"></button> <span><%= posts[i].likes %></span>
           </form>
-          <h3 class="col-3">Likes: <%= posts[i].likes %></h3>
-          
-  
           </li>
         <% } %>
         </ul>
     </div>
   </div>  
+</div>
+
+
 <%- include('partials/footer') -%>
