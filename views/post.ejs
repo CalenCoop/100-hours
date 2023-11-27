@@ -1,9 +1,11 @@
 <%- include('partials/header') -%>
+<link href= "../public/css/style.css" rel="stylesheet" type="text/css">
+
 <div class="container">
   <div class="row justify-content-center mt-5">
-    <div class="col-6">
-      <h2><%= post.title %></h2>
-      <h1> <%= post.comment %> </h1>
+    <div>
+      <!-- <h2><%= post.title %></h2> -->
+      <h1 class="postPageComment"> <%= post.comment %> </h1>
       <img class="img-fluid" src="<%= post.image%>" />
       <div class="row justify-content-between">
         <form
@@ -11,9 +13,8 @@
           action="/post/likePost/<%= post.id %>?_method=PUT"
           method="POST"
         >
-          <button class="btn btn-primary fa fa-heart" type="submit"></button>
+          <button class="btn btn-primary fa fa-heart" type="submit"></button><span> <%= post.likes %></span>
         </form>
-        <h3 class="col-3">Likes: <%= post.likes %></h3>
         <%if(post.user == user.id){ %>
         <form
           action="/post/deletePost/<%= post.id %>?_method=DELETE"
@@ -30,11 +31,12 @@
       <p><%= post.caption %></p>
     </div>
     <div class="mt-5">
-      <h2>Add a Comment</h2>
+      
       <form action="/comment/createComment/<%=post._id%>" method="POST">
         <div class="mb-3">
             <label for="comment" class="form-label">Comment</label>
-            <input type="text" class="form-control" id="comment" name="comment">
+            <!-- <input type="text" class="form-control" id="comment" name="comment" placeholder="Add a comment"> -->
+            <textarea class ="postInput form-control" id="comment" name= "comment" placeholder="Add a comment" rows="2"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
@@ -62,4 +64,5 @@
   </div>
 </div>
 
+<script src="/js/main.js"></script>
 <%- include('partials/footer') -%>

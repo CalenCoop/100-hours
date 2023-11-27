@@ -7,7 +7,7 @@
   <form class = "postForm" action="/post/createPost" enctype="multipart/form-data" method="POST">
     <div class="mb-3">
         <label for="comment" class="form-label" text></label>
-        <input class = postInput type="text" class="form-control" id="comment" name="comment" placeholder="What's new?">
+        <textarea class ="postInput form-control" id="comment" name= "comment" placeholder="What's new?" rows="2"></textarea>
     </div>
     <div class = "postButtons">
       <div class="mb-3">
@@ -30,7 +30,7 @@
           <li class="posts pt-3 pb-3">
             <h3><a href="/profile/<%= posts[i].user._id %>"><%= posts[i].user.userName %></a></h3>
               <a href="/post/<%= posts[i]._id%>">
-              <h1 class="postH1"> <%= posts[i].comment %> </h1>
+              <h1 class="postH1 postContent"> <%= posts[i].comment %> </h1>
               <img class="img-fluid" src="<%= posts[i].image%>">
             </a>
             <form
@@ -47,5 +47,5 @@
   </div>  
 </div>
 
-
+<script src="/js/main.js"></script>
 <%- include('partials/footer') -%>

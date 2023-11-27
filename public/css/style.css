@@ -50,6 +50,7 @@ img{
     list-style: none;
     justify-content: space-between;
     margin-right: 20px;
+    
 }
 .postContainer .postH1{
     text-decoration: none;
@@ -61,3 +62,9 @@ img{
     color:black;
     text-decoration: none;
 }
+.postContent, .postPageComment {
+    white-space: pre-line;
+  }
+ .platformTitle{
+    margin-top:50px;
+ }
