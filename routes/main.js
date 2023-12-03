@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require("../controllers/auth");
 const homeController = require("../controllers/home");
 const postsController = require("../controllers/posts");
+const connectController = require("../controllers/connect")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.get("/", homeController.getIndex)
@@ -13,7 +14,7 @@ router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 router.get("/profile/:id", ensureAuth, postsController.getProfile);
 router.get("/home", ensureAuth, postsController.getHome);
-router.get("/discover", ensureAuth, postsController.getDiscover);
+router.get("/connect", ensureAuth, connectController.getConnect);
 
 
 module.exports = router

@@ -1,0 +1,62 @@
+<%- include('partials/header') -%>
+<h1> This is the Connect page where you can connect with other gamers </h1>
+
+<link href="../public/css/style.css" rel="stylesheet" type="text/css">
+<script src="../public/js/main.js"></script>
+
+<div class="formContainer mt-5">
+  <form action="/connect/createConnection" method="POST">
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input type="text" class="form-control" id="description" name="description" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="platform" class="form-label">Platform</label>
+      <select class="form-select" id="platform" name="platform" required>
+        <option value="PC">PC</option>
+        <option value="Xbox">Xbox</option>
+        <option value="PlayStation">PlayStation</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="gameUsername" class="form-label">Game Username</label>
+      <input type="text" class="form-control" id="gameUsername" name="gameUsername" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="compLevel" class="form-label">Competitive Level</label>
+        <select class="form-select" id="compLevel" name="compLevel" required>
+          <option value="Casual">Casual</option>
+          <option value="Competitive">Competitive</option>
+          <option value="Balanced">Balanced</option>
+        </select>
+      </div>
+
+    <div class="mb-3">
+      <label for="region" class="form-label">Region</label>
+      <select class="form-select" id="region" name="region" required>
+        <option value="NA">NA</option>
+        <option value="EU">EU</option>
+        <option value="AS">AS</option>
+        <option value="SA">SA</option>
+        <option value="AF">AF</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="communication" class="form-label">Communication</label>
+        <select class="form-select" id="communication" name="communication" required>
+          <option value="No">No</option>
+          <option value="Optional">Optional</option>
+          <option value="Preferred">Preferred</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<%- include('partials/footer') -%>
