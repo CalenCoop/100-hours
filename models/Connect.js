@@ -44,6 +44,15 @@ const ConnectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
+      post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Post",
+      },
+      createdById: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    
+      },
       createdAt: {
         type: Date,
         default: Date.now,
