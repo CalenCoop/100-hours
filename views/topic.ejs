@@ -1,9 +1,28 @@
 <%- include('partials/header') -%>
-<script src="../public/js/main.js"></script>
+<!-- <script src="../public/js/main.js"></script> -->
 
 <h1> <%= Topic.title %> </h1>
+
+
+
+<ul>
+  <% for (var i = 0; i < comments.length; i++) { %>
+    <li class="col-6 justify-content-between mt-5">
+      <a href="/profile/<%= comments[i].createdById %>"><%= comments[i].createdBy %></a> : <%= comments[i].comment %>
+    </li>
+  <% } %>
+
+  <% for (var i = 0; i < Connections.length; i++) { %>
+    <li class="col-6 justify-content-between mt-5">
+      <h1><%= Connections[i].description %></h1>
+    </li>
+  <% } %>
+</ul>
+
+
+
 <div class="formContainer mt-5">
-  <form action="/connect/createConnection" method="POST">
+  <form action="/connect/createConnection/<%= Topic._id %>" method="POST">
     <div class="mb-3">
       <label for="description" class="form-label">Description</label>
       <input type="text" class="form-control" id="description" name="description" required>

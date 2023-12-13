@@ -11,7 +11,7 @@
 
 <div class="new-topic-form">
   <h2>Create a New Topic</h2>
-  <form action="/connect/createTopic" method="POST">
+  <form action="/connect/createTopic/" method="POST">
       <div class="mb-3">
           <label for="topicTitle" class="form-label">Topic Title</label>
           <input type="text" class="form-control" id="topicTitle" name="topicTitle" required>
@@ -26,7 +26,7 @@
       <ul c>
         <% for(var i=0; i<Topic.length; i++) {%>
           <li class="posts pt-3 pb-3">
-              <a href="/connect/<%= Topic[i]._id%>">
+              <a href="/connect/topic/<%= Topic[i]._id%>">
                 <h1> <%= Topic[i].title %> </h1>
               </a>
           </li>

@@ -1,5 +1,8 @@
 const Topic = require('../models/Topic')
 const Connect= require("../models/Connect");
+const Comment = require("../models/Comment");
+const User = require("../models/User");
+
 
 
 module.exports = {
@@ -8,7 +11,7 @@ module.exports = {
           const Connections = await Connect.find().sort({ createdAt: "desc" }).lean();
           const Topics = await Topic.find().sort({ createdAt: "desc" }).lean();
         
-          res.render("connect.ejs", { Topic: Topics, Connections: Connections ,user: req.user });
+          res.render("connect.ejs", { Topic: Topics, Connections: Connections, user: req.user, });
         } catch (err) {
           console.log(err);
         }
@@ -17,8 +20,13 @@ module.exports = {
         try {
           const Topics = await Topic.findById(req.params.id);
           const Connections = await Connect.find({post: req.params.id}).sort({createdAt: 'desc'}).lean();
+          const comments = await Comment.find({post: req.params.id}).sort({createdAt: 'desc'}).lean();
+
+          console.log('Topics:', Topics);
+          console.log('Connections:', Connections);
+          console.log('Comments:', comments);
         
-          res.render("topic.ejs", { Topic: Topics, Connections: Connections ,user: req.user });
+          res.render("topic.ejs", { Topic: Topics, Connections: Connections ,user: req.user, comments: comments });
         } catch (err) {
           console.log(err);
         }

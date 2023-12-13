@@ -5,8 +5,8 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 
 router.get("/", ensureAuth, connectController.getConnect);
-router.get("/:id", ensureAuth, connectController.getTopic);
+router.get("/topic/:id", ensureAuth, connectController.getTopic);
 router.post("/createTopic/", connectController.createTopic);
-router.post("/createConnection/", connectController.createConnection);
+router.post("/createConnection/:id", connectController.createConnection);
 
 module.exports = router;
