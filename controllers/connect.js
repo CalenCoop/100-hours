@@ -19,7 +19,7 @@ module.exports = {
       getTopic: async (req, res) => {
         try {
           const Topics = await Topic.findById(req.params.id);
-          const Connections = await Connect.find({post: req.params.id}).sort({createdAt: 'desc'}).lean();
+          const Connections = await Connect.find({post: req.params.id}).populate('user').sort({createdAt: 'desc'}).lean();
           const comments = await Comment.find({post: req.params.id}).sort({createdAt: 'desc'}).lean();
 
           console.log('Topics:', Topics);
@@ -54,6 +54,7 @@ module.exports = {
             compLevel: req.body.compLevel,
             region:req.body.region,
             communication: req.body.communication,
+            user: req.user.id,
             post: req.params.id,
             createdBy: req.user.userName,
             createdById: req.user.id,

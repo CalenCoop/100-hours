@@ -5,16 +5,21 @@
 
 
 
-<ul>
+<ul class= "row list-unstyled">
+  <% for (var i = 0; i < Connections.length; i++) { %>
+    <li class="col-6 justify-content-between mt-5">
+      <h3><a href="/profile/<%= Connections[i].user._id %>"><%= Connections[i].user.userName %> </a></h3>
+      <h4>Preferred Platform: <%= Connections[i].platform %> </h4>
+        <h4> Game Username: <%= Connections[i].gameUsername %> </h4>
+        <h4>Competitve Level: <%= Connections[i].compLevel %></h4>
+        <h4>Region: <%= Connections[i].region %></h4>
+        <h4>Preferred Communication: <%= Connections[i].communication %></h4>
+        <h4>Description:<%= Connections[i].description %></h4>
+    </li>
+  <% } %>
   <% for (var i = 0; i < comments.length; i++) { %>
     <li class="col-6 justify-content-between mt-5">
       <a href="/profile/<%= comments[i].createdById %>"><%= comments[i].createdBy %></a> : <%= comments[i].comment %>
-    </li>
-  <% } %>
-
-  <% for (var i = 0; i < Connections.length; i++) { %>
-    <li class="col-6 justify-content-between mt-5">
-      <h1><%= Connections[i].description %></h1>
     </li>
   <% } %>
 </ul>
