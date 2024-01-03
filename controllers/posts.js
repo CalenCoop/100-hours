@@ -46,7 +46,7 @@ module.exports = {
         try {
           // Upload image to cloudinary
           let newPost;
-      
+          console.log("req.file:", req.file)
           if (req.file) {
             const result = await cloudinary.uploader.upload(req.file.path);
       

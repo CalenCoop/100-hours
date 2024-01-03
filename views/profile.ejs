@@ -3,6 +3,31 @@
   <div class="row mt-5">
       <div class="col-6">
           <div>
+            <img src="<%= profile.profileBackground === 'defaultBackground.jpeg' ? '/imgs/defaultBackground.jpeg' : profile.profileBackground %>" alt="Profile Background">
+            <form action="/upload/profileBackground/<%= user.id %>" enctype="multipart/form-data" method="POST">
+            <div class="mb-3 img-fluid">
+              <label for="profileBackground" class="form-label">Change Background Picture</label>
+              <input type="file" class="form-control" id="profileBackground" name="file" style="display: none;">
+              <label for="profileBackground" class="custom-file-upload">
+                <img src="/imgs/upload.jpg" alt="Choose image" style="width: 30px; height: 30px;">
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form> 
+          
+
+            <img src="<%= profile.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : profile.profilePicture %>" alt="Profile Picture">
+            <form action="/upload/profilePicture/<%= user.id %>" enctype="multipart/form-data" method="POST">
+              <div class="mb-3">
+                <label for="profilePicture" class="form-label">Change Profile Picture</label>
+                <input type="file" class="form-control" id="profilePicture" name="file" style="display: none;">
+                <label for="profilePicture" class="custom-file-upload">
+                  <img src="/imgs/upload.jpg" alt="Choose image" style="width: 30px; height: 30px;">
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+    
               <p><strong>User Name</strong>: <%= profile.userName %></p>
               <% if(user.id == profile._id){ %>
                 <p><strong>Email</strong>: <%= user.email %></p>

@@ -7,6 +7,17 @@ const UserSchema = new mongoose.Schema({
   password: String,
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  profilePicture: {
+    type: String,
+    default: "defaultPicture.png",
+  },
+  profileBackground: {
+    type: String,
+    default: "defaultBackground.jpeg",
+  },
+  cloudinaryId: {
+    type: String,
+  },
 });
 
 // Password hash middleware.

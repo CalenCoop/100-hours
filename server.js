@@ -11,7 +11,8 @@ const connectDB = require('./config/database');
 const mainRoutes = require('./routes/main');
 const postRoutes = require('./routes/posts');
 const commentRoutes = require("./routes/comments");
-const connectRoutes = require('./routes/connect')
+const connectRoutes = require('./routes/connect');
+const uploadRoutes = require('./routes/upload');
 
 // .env config
 require('dotenv').config({path: './config/.env'})
@@ -58,8 +59,9 @@ app.use(flash());
 //Routes
 app.use("/", mainRoutes);
 app.use("/post", postRoutes);
-app.use("/comment", commentRoutes)
-app.use("/connect", connectRoutes)
+app.use("/comment", commentRoutes);
+app.use("/connect", connectRoutes);
+app.use("/upload", uploadRoutes);
 
 
 
