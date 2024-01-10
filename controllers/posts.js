@@ -1,4 +1,5 @@
 const cloudinary = require("../middleware/cloudinary");
+const mongoose = require("mongoose");
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Comment = require("../models/Comment");
@@ -18,8 +19,10 @@ module.exports = {
     getHome: async (req, res) => {
         try {
           const posts = await Post.find().sort({ createdAt: "desc" }).populate("user").lean();
+          const profile = await User.findById(req.params.id)
+      
           // const user = await User.findById(posts.user)
-          res.render("home.ejs", { posts: posts, user: req.user });
+          res.render("home.ejs", { posts: posts, user: req.user, profile: profile });
         } catch (err) {
           console.log(err);
         }
@@ -81,13 +84,13 @@ module.exports = {
           if(post){
             await Post.findOneAndUpdate(
               {_id: postId},
-              {$pull: { likedBy: userId }, $inc: { likes: -1 }}
+              {$pull: { likedBy:userId }, $inc: { likes: -1 }}
             )
             console.log('post unliked')
           } else {
             await await Post.findOneAndUpdate(
               {_id: postId},
-              {$push: { likedBy: userId }, $inc: { likes: 1 }}
+              {$push: { likedBy:userId }, $inc: { likes: 1 }}
             )
             console.log('post liked')
           }
@@ -95,6 +98,8 @@ module.exports = {
           const referer = req.headers.referer
           //use referer if avail, otherwise default Url
           const redirectUrl = referer || '/defaultRedirect'
+
+          
           res.redirect(redirectUrl)
         } catch (err) {
           console.log(err);
@@ -115,6 +120,46 @@ module.exports = {
         } catch (err) {
           console.log(err)
           res.redirect("/profile/" + req.user.id);
+        }
+      },
+      followUser: async (req, res) => {
+        try{
+          const userId = req.params.id;
+          
+          //Check if user is trying to follow themselves
+          if(userId.toString()=== req.user.id.toString()){
+             res.status(400).json({error:'You cannot follow yourself.'})
+             return res.redirect("profile/" + userId)
+          }
+          //find target user
+          const targetUser = await User.findById(userId)
+          //check if target user exists
+          if(!targetUser){
+             res.status(400).json({error:'User not found' })
+             return res.redirect("/")
+          }
+          const isFollowing = targetUser.followers.includes(req.user.id)
+          
+          if(isFollowing){
+            //unfollow user
+            targetUser.followers = targetUser.followers.filter((followerId) => followerId.toString() !== req.user.id.toString())
+            req.user.following = req.user.following.filter((followingId) => followingId.toString() !== targetUser.id.toString())
+          }else{
+            //update target users followers array
+            targetUser.followers.push(req.user.id);
+            //update current users following array
+            req.user.following.push(targetUser.id);
+
+          }
+          await targetUser.save()
+          await req.user.save()
+
+          res.redirect("/profile/" + userId);
+        }
+        catch(error){
+          console.log(error)
+          res.status(500).json({error: 'Internal server error'})
+          res.redirect('/')
         }
       },
 }

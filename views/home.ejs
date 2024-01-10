@@ -1,5 +1,5 @@
 <%- include('partials/header') -%>
-<link href= "../public/css/style.css" rel="stylesheet" type="text/css">
+<link href= "/css/style.css" rel="stylesheet" type="text/css">
 
 
 
@@ -28,7 +28,8 @@
       <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
           <li class="posts pt-3 pb-3">
-            <h3><a href="/profile/<%= posts[i].user._id %>"><%= posts[i].user.userName %></a></h3>
+            <h3><img class ="profilePic" src="<%= posts[i].user.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : posts[i].user.profilePicture %>"  alt="Profile Picture"><a href="/profile/<%= posts[i].user._id %>"> <%= posts[i].user.userName %></a>
+            </h3>
               <a href="/post/<%= posts[i]._id%>">
               <h1 class="postH1 postContent"> <%= posts[i].comment %> </h1>
               <img class="img-fluid" src="<%= posts[i].image%>">
@@ -38,7 +39,9 @@
             action="/post/likePost/<%= posts[i]._id %>?_method=PUT"
             method="POST"
           >
-            <button class="btn btn-primary fa fa-heart" type="submit"></button> <span><%= posts[i].likes %></span>
+          <button class="<%= posts[i].likedBy.some(id => String(id).trim() === user.id.trim()) ? 'btn btn-danger' : 'btn btn-outline-danger' %> fa fa-heart" type="submit"></button>
+          <span><%= posts[i].likes %></span>
+
           </form>
           </li>
         <% } %>
@@ -47,5 +50,5 @@
   </div>  
 </div>
 
-<!-- <script src="/js/main.js"></script> -->
+<script src="/js/main.js"></script>
 <%- include('partials/footer') -%>

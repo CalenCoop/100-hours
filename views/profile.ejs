@@ -1,9 +1,13 @@
 <%- include('partials/header') -%>
+<link href= "/css/profile.css" rel="stylesheet" type="text/css">
+
+
 <div class="container">
-  <div class="row mt-5">
-      <div class="col-6">
+  <div class="">
+      <div class="">
           <div>
-            <img src="<%= profile.profileBackground === 'defaultBackground.jpeg' ? '/imgs/defaultBackground.jpeg' : profile.profileBackground %>" alt="Profile Background">
+            <img class = "profileBanner" src="<%= profile.profileBackground === 'defaultBackground.jpeg' ? '/imgs/defaultBackground.jpeg' : profile.profileBackground %>" alt="Profile Background">
+            <% if(user.id == profile._id){ %>
             <form action="/upload/profileBackground/<%= user.id %>" enctype="multipart/form-data" method="POST">
             <div class="mb-3 img-fluid">
               <label for="profileBackground" class="form-label">Change Background Picture</label>
@@ -14,9 +18,11 @@
             </div>
             <button type="submit" class="btn btn-primary">Upload</button>
           </form> 
+          <% } %>
           
 
-            <img src="<%= profile.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : profile.profilePicture %>" alt="Profile Picture">
+            <img class ="profilePic" src="<%= profile.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : profile.profilePicture %>" alt="Profile Picture">
+            <% if(user.id == profile._id){ %>
             <form action="/upload/profilePicture/<%= user.id %>" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
                 <label for="profilePicture" class="form-label">Change Profile Picture</label>
@@ -27,8 +33,25 @@
               </div>
               <button type="submit" class="btn btn-primary">Upload</button>
             </form>
+            <% } %>
     
-              <p><strong>User Name</strong>: <%= profile.userName %></p>
+              <p><strong><%= profile.userName %></strong></p>
+              <span>Following: <%= profile.following.length %></span>
+              <span>Followers: <%= profile.followers.length %></span>
+
+              
+              <% if(user.id !== profile.id){ %> 
+              <form action="/followUser/<%= profile.id %>" method="POST">
+                <button type= "submit" class="btn btn-outline-primary">
+                  <% if(user.following.includes(profile._id)){ %>
+                    Unfollow
+                  <% } else { %>
+                  Follow
+                  <% } %>
+                </button>
+              </form>
+              <% } %>
+          
               <% if(user.id == profile._id){ %>
                 <p><strong>Email</strong>: <%= user.email %></p>
                 <a href="/logout" class="col-3 btn btn-primary">Logout</a>
@@ -79,5 +102,6 @@
       </div>  
     </div>
   </div>
+</div>
 </div>
 <%- include('partials/footer') -%>

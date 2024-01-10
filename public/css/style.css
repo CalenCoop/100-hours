@@ -9,7 +9,7 @@
     background-color: rgba(170, 170, 170, 0.060);
 }
 img{
-    max-height: 200px;
+    /* max-height: 200px; */
 }
 .postForm{
     padding:10px;
@@ -71,3 +71,9 @@ img{
  .platformTitle{
     margin-top:50px;
  }
+ .profilePic{
+    height:70px;
+    width:70px;
+    border-radius: 50%;
+    
+}
