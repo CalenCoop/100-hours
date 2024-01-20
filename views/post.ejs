@@ -13,7 +13,8 @@
           action="/post/likePost/<%= post.id %>?_method=PUT"
           method="POST"
         >
-          <button class="btn btn-primary fa fa-heart" type="submit"></button><span> <%= post.likes %></span>
+        <button class="<%= post.likedBy.some(id => String(id).trim() === user.id.trim()) ? 'btn btn-danger' : 'btn btn-outline-danger' %> fa fa-heart" type="submit"></button>
+        <span> <%= post.likes %></span>
         </form>
         <%if(post.user == user.id){ %>
         <form
@@ -42,27 +43,65 @@
       </form>
     </div>
       <ul>
-        <% for(var i=0; i<comments.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/profile/<%=comments[i].createdById %>"><%= comments[i].createdBy%></a> : <%= comments[i].comment %>
-            
-            <%if(comments[i].createdById == user.id){ %>
-            <form
-            action="/comment/deleteComment/<%=post._id%>/<%= comments[i]._id %>?_method=DELETE"
-            method="POST"
-          >
-          <button type="submit" class="btn btn-outline-danger">Delete</button>
-          </form>
-          <%}%>
-          </li>
-        <% } %>
-        </ul>
-    <div class="col-6 mt-5">
-      <a class="btn btn-primary" href="/profile/<%=user.id%>">Return to Profile</a>
-      <a class="btn btn-primary" href="/feed">Return to Feed</a>
-    </div>
-  </div>
-</div>
+        <% const renderComment = (comment) => { %>
+          <% if (!comment.parentComment) { %>
+            <li class="col-6 justify-content-between mt-5">
+              <a href="/profile/<%= comment.createdById %>"><%= comment.createdBy %></a> : <%= comment.comment %>
+    
+              <form action="/comment/createComment/<%= post._id %>" method="POST">
+                <div class="mb-3">
+                  <textarea class="postInput form-control" id="comment" name="comment" placeholder="Add a comment" rows="2"></textarea>
+                </div>
+                <input type="hidden" name="parentCommentId" value="<%= comment._id %>">
+                <button type="submit" class="btn btn-primary">Reply</button>
+              </form>
+    
+              <% if (comment.createdById == user.id) { %>
+                <form action="/comment/deleteComment/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST">
+                  <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+              <% } %>
+            </li>
+          <% } %>
+    
+          <% if (comment.replies && Array.isArray(comment.replies) && comment.replies.length > 0) { %>
+            <ul>
+              <% comment.replies.forEach(reply => { %>
+                <% if (reply && reply.createdById) { %>
+                  <li>
+                    <a href="/profile/<%= reply.createdById %>"><%= reply.createdBy %></a> <span class="glyphicon glyphicon-triangle-right"></span> <a href="/profile/<%= comment.createdById %>"><%= comment.createdBy %></a> : <%= reply.comment %>
 
-<script src="/js/main.js"></script>
-<%- include('partials/footer') -%>
+
+                    <form action="/comment/createComment/<%= post._id %>" method="POST">
+                      <div class="mb-3">
+                        <textarea class="postInput form-control" id="comment" name="comment" placeholder="Add a comment" rows="2"></textarea>
+                      </div>
+                      <input type="hidden" name="parentCommentId" value="<%= comment._id %>">
+                      <button type="submit" class="btn btn-primary">Reply</button>
+                    </form>
+
+                    <% if (comment.createdById == user.id) { %>
+                      <form action="/comment/deleteComment/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                      </form>
+                    <% } %>
+                  </li>
+                <% } %>
+              <% }); %>
+            </ul>
+          <% } %>
+        <% }; %>
+    
+        <% comments.forEach(renderComment); %>
+      </ul>
+
+    
+      <div class="col-6 mt-5">
+        <a class="btn btn-primary" href="/profile/<%= user.id %>">Return to Profile</a>
+        <a class="btn btn-primary" href="/feed">Return to Feed</a>
+      </div>
+    </div>
+    </div>
+    
+    <script src="/js/main.js"></script>
+    <%- include('partials/footer') -%>

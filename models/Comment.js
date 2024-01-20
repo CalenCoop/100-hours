@@ -13,15 +13,20 @@ const CommentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
   },
+  parentComment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
+  },
+  replies: [{  
+    type: mongoose.Schema.Types.ObjectId,
+     ref: 'Comment' }],
   createdBy: {
     type: String,
     ref: "User"
-    
   },
   createdById: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-
   },
   createdAt: {
     type: Date,

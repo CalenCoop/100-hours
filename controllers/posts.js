@@ -35,11 +35,16 @@ module.exports = {
       //     console.log(err);
       //   }
       // },
+     
       getPost: async (req, res) => {
+        
         try {
           const post = await Post.findById(req.params.id);
           const comments = await Comment.find({post: req.params.id}).sort({createdAt: 'desc'}).lean();
           const user = await User.findById(post.user)
+          for (const comment of comments) {
+            comment.replies = await Promise.all(comment.replies.map(replyId => Comment.findById(replyId).lean()));
+          }
           res.render("post.ejs", { post: post, user: req.user, comments: comments, postUsername: user.userName });
         } catch (err) {
           console.log(err);
