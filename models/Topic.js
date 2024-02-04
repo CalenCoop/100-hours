@@ -6,6 +6,10 @@ const TopicSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    connections: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Connect'
+    }],
     createdAt: {
         type: Date,
         default: Date.now,

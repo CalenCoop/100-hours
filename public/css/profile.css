@@ -1,12 +1,79 @@
+*{
+    box-sizing: border-box;
+}
 .profileBanner{
     width:100%;
     height:400px;
 
 }
 .profilePic{
-    height:70px;
-    width:70px;
+    height:100px;
+    width:100px;
     border-radius: 50%;
     
 }
+.profilePostsContainer{
+    width: 100%;
+}
+.profilePosts{
+    width:100%;
+    color:black;
+    text-decoration:none;
 
+}
+.profilePostList{
+    border: 1px solid rgba(106, 106, 106, 0.144);
+    width:100%;
+    padding: 10px;
+}
+a img{
+    max-width: 300px;
+    max-height: 300px;
+}
+.profilePostList:hover{
+    background-color: rgba(170, 170, 170, 0.060);
+}
+.postForm{
+    padding:10px;
+    border:0;
+    width:100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+                0 2px 2px rgba(0,0,0,0.15), 
+                0 4px 4px rgba(0,0,0,0.15), 
+                0 8px 8px rgba(0,0,0,0.15);;
+}
+.formContainer{
+    display: flex;
+    justify-content: center;
+}
+.postButtons{
+    display: flex;
+    justify-content: space-between;
+}
+.postContainer{
+    display:flex;
+    width:75%;
+    /* border: 1px solid rgba(64, 63, 63, 0.046); */
+    
+}
+.profile-banner-container {
+    position: relative;
+  }
+  
+  .profile-options-btn {
+    position: absolute;
+  }
+  .profile-pic-container {
+    position: absolute;
+    bottom: 0;
+    transform: translateX(10px);
+    margin-bottom: -30px; 
+    z-index: 2; 
+    border: 4px solid #fff; 
+    border-radius: 50%; 
+    overflow: hidden; 
+  }
+  .profileInfo{
+    padding-top: 40px;
+  }
+  

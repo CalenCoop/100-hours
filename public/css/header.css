@@ -1,0 +1,16 @@
+.headerProfilePic{
+    height:25px;
+    width:25px;
+    border-radius: 50%;
+}
+.customNav{
+    color:white;
+
+}
+.navbarContainer{
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    margin-right: 20px;
+    
+}

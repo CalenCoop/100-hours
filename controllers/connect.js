@@ -10,7 +10,7 @@ module.exports = {
         try {
           const Connections = await Connect.find().sort({ createdAt: "desc" }).lean();
           const Topics = await Topic.find().sort({ createdAt: "desc" }).lean();
-        
+  
           res.render("connect.ejs", { Topic: Topics, Connections: Connections, user: req.user, });
         } catch (err) {
           console.log(err);
@@ -21,10 +21,6 @@ module.exports = {
           const Topics = await Topic.findById(req.params.id);
           const Connections = await Connect.find({post: req.params.id}).populate('user').sort({createdAt: 'desc'}).lean();
           const comments = await Comment.find({post: req.params.id}).sort({createdAt: 'desc'}).lean();
-
-          console.log('Topics:', Topics);
-          console.log('Connections:', Connections);
-          console.log('Comments:', comments);
         
           res.render("topic.ejs", { Topic: Topics, Connections: Connections ,user: req.user, comments: comments });
         } catch (err) {
@@ -59,6 +55,16 @@ module.exports = {
             createdBy: req.user.userName,
             createdById: req.user.id,
           });
+
+          //update topic model
+          const {post: topicId } = newConnection
+          const topic = await Topic.findById(topicId);
+          if(topic){
+            topic.connections.push(newConnection._id)
+            await topic.save()
+          }
+
+
       
           console.log("Connection post has been created!");
         //   res.redirect("/post/" + newConnection._id);

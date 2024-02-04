@@ -27,6 +27,19 @@ module.exports = {
           console.log(err);
         }
       },
+      getFollowing: async (req, res) => {
+        try {
+          const user = req.user
+          const  followingUsers = user.following
+          const posts = await Post.find({ user: { $in: followingUsers } }).sort({ createdAt: "desc" }).populate("user").lean();
+          const profile = await User.findById(req.params.id)
+      
+          // const user = await User.findById(posts.user)
+          res.render("following.ejs", { posts: posts, user: req.user, profile: profile });
+        } catch (err) {
+          console.log(err);
+        }
+      },
       // getDiscover: async (req, res) => {
       //   try {
       //     const posts = await Post.find().sort({ createdAt: "desc" }).lean();

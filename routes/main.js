@@ -15,6 +15,7 @@ router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 router.get("/profile/:id", ensureAuth, postsController.getProfile);
 router.get("/home", ensureAuth, postsController.getHome);
+router.get("/following", ensureAuth, postsController.getFollowing);
 router.get("/connect", ensureAuth, connectController.getConnect);
 router.post("/followUser/:id", ensureAuth, postsController.followUser);
 

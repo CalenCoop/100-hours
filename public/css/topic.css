@@ -1,0 +1,9 @@
+*{
+    box-sizing: border-box;
+}
+.container{
+    width: 75%;
+}
+.posts{
+    border: 1px solid rgba(106, 106, 106, 0.144);
+}

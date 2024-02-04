@@ -1,20 +1,19 @@
 <%- include('partials/header') -%>
-<!-- <script src="../public/js/main.js"></script> -->
+<link href= "/css/topic.css" rel="stylesheet" type="text/css">
 
+<div class="container">
 <h1> <%= Topic.title %> </h1>
-
-
-
 <ul class= "row list-unstyled">
   <% for (var i = 0; i < Connections.length; i++) { %>
-    <li class="col-6 justify-content-between mt-5">
+    <li class="posts justify-content-between">
       <h3><a href="/profile/<%= Connections[i].user._id %>"><%= Connections[i].user.userName %> </a></h3>
-      <h4>Preferred Platform: <%= Connections[i].platform %> </h4>
+      <h4>Platform: <%= Connections[i].platform %> </h4>
         <h4> Game Username: <%= Connections[i].gameUsername %> </h4>
         <h4>Competitve Level: <%= Connections[i].compLevel %></h4>
         <h4>Region: <%= Connections[i].region %></h4>
         <h4>Preferred Communication: <%= Connections[i].communication %></h4>
         <h4>Description:<%= Connections[i].description %></h4>
+        <span> <%= Connections[i].createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %> </span>
     </li>
   <% } %>
   <% for (var i = 0; i < comments.length; i++) { %>
@@ -25,14 +24,9 @@
 </ul>
 
 
-
-<div class="formContainer mt-5">
+<button id="showFormButton" class="btn btn-primary">Create Submission</button>
+<div id="formContainer" class="formContainer mt-5" style="display: none;">
   <form action="/connect/createConnection/<%= Topic._id %>" method="POST">
-    <div class="mb-3">
-      <label for="description" class="form-label">Description</label>
-      <input type="text" class="form-control" id="description" name="description" required>
-    </div>
-
     <div class="mb-3">
       <label for="platform" class="form-label">Platform</label>
       <select class="form-select" id="platform" name="platform" required>
@@ -75,9 +69,20 @@
           <option value="Preferred">Preferred</option>
           <option value="Yes">Yes</option>
         </select>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <input type="text" class="form-control" id="description" name="description" required>
+        </div>
       </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+</div>
+<script>
+  document.getElementById('showFormButton').addEventListener('click', function() {
+    document.getElementById('formContainer').style.display = 'block';
+  });
+</script>
+
 </div>
 <%- include('partials/footer') -%>
