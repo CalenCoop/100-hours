@@ -13,13 +13,13 @@
       </div>
 
       <!-- Profile Options Button -->
+      <% if(user.id == profile._id){ %>
       <div class="profile-options-btn position-absolute bottom-0 end-0">
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="profileMenu" data-bs-toggle="dropdown" aria-expanded="false">
             Profile Options
           </button>
           <ul class="dropdown-menu" aria-labelledby="profileMenu">
-            <% if(user.id == profile._id){ %>
               <li>
                 <form action="/upload/profileBackground/<%= user.id %>" enctype="multipart/form-data" method="POST">
                   <div class="mb-3 img-fluid">
@@ -32,9 +32,6 @@
                   <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
               </li>
-            <% } %>
-
-            <% if(user.id == profile._id){ %>
               <li>
                 <form action="/upload/profilePicture/<%= user.id %>" enctype="multipart/form-data" method="POST">
                   <div class="mb-3">
@@ -47,10 +44,10 @@
                   <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
               </li>
-            <% } %>
           </ul>
         </div>
       </div>
+      <% } %>
     </div>
 
       <div class="">
@@ -107,6 +104,15 @@
                 <img class="img-fluid" alt="Responsive image" src="<%= posts[i].image%>">
                 <% } %>
                 <h4> <%= posts[i].comment %> </h4>
+                <form
+            class="col-1"
+            action="/post/likePost/<%= posts[i]._id %>?_method=PUT"
+            method="POST"
+          >
+          <button class="<%= posts[i].likedBy.some(id => String(id).trim() === user.id.trim()) ? 'btn btn-danger' : 'btn btn-outline-danger' %> fa fa-heart" type="submit"></button>
+          <span><%= posts[i].likes %></span>
+
+          </form>
           </li>
         <% } %>
         </ul>

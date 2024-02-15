@@ -1,15 +1,15 @@
 <%- include('partials/header') -%>
-<link href= "../public/css/style.css" rel="stylesheet" type="text/css">
+<link href= "/css/post.css" rel="stylesheet" type="text/css">
 
 <div class="container">
-  <div class="row justify-content-center mt-5">
+  <div class="mt-5">
     <div>
       <!-- <h2><%= post.title %></h2> -->
       <h1 class="postPageComment"> <%= post.comment %> </h1>
       <img class="img-fluid" src="<%= post.image%>" />
-      <div class="row justify-content-between">
+      <div class="d-flex justify-content-between">
         <form
-          class="col-1"
+          class=""
           action="/post/likePost/<%= post.id %>?_method=PUT"
           method="POST"
         >
@@ -20,13 +20,13 @@
         <form
           action="/post/deletePost/<%= post.id %>?_method=DELETE"
           method="POST"
-          class="col-3"
+          class=""
         >
           <button class="btn btn-primary fa fa-trash" type="submit"></button>
         </form>
         <%}%>
-        <h4><a href="/profile/<%=post.user%>"><%= postUsername %></a></h4>
       </div>
+        <h4 class ="mt-5"><a href="/profile/<%=post.user%>"><%= postUsername %></a></h4>
     </div>
     <div class="col-3 mt-5">
       <p><%= post.caption %></p>
@@ -46,8 +46,10 @@
         <% const renderComment = (comment) => { %>
           <% if (!comment.parentComment) { %>
             <li class="col-6 justify-content-between mt-5">
+              <div>
               <a href="/profile/<%= comment.createdById %>"><%= comment.createdBy %></a> : <%= comment.comment %>
-    
+              </div>
+              <div class="commentActions">
               <form action="/comment/createComment/<%= post._id %>" method="POST">
                 <div class="mb-3">
                   <textarea class="postInput form-control" id="comment" name="comment" placeholder="Add a comment" rows="2"></textarea>
@@ -61,6 +63,7 @@
                   <button type="submit" class="btn btn-outline-danger">Delete</button>
                 </form>
               <% } %>
+              </div>
             </li>
           <% } %>
     

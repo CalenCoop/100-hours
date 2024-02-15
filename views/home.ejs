@@ -1,5 +1,5 @@
 <%- include('partials/header') -%>
-<link href= "/css/style.css" rel="stylesheet" type="text/css">
+<link href= "/css/main.css" rel="stylesheet" type="text/css">
 
 
 
@@ -22,32 +22,36 @@
   </form>
 </div>
 
-<div class = "centerContainer">
+<div class="centerContainer">
   <div class="postContainer">
     <div class="row justify-content-center mt-5">
       <ul class="row list-unstyled">
         <% for(var i=0; i<posts.length; i++) {%>
           <li class="posts pt-3 pb-3">
-            <h3><img class ="profilePic" src="<%= posts[i].user.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : posts[i].user.profilePicture %>"  alt="Profile Picture"><a href="/profile/<%= posts[i].user._id %>"> <%= posts[i].user.userName %></a>
+            <h3>
+              <img class="profilePic" src="<%= posts[i].user.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : posts[i].user.profilePicture %>" alt="Profile Picture">
+              <a href="/profile/<%= posts[i].user._id %>"> <%= posts[i].user.userName %></a>
             </h3>
-              <a href="/post/<%= posts[i]._id%>">
+            <a href="/post/<%= posts[i]._id%>">
               <h1 class="postH1 postContent"> <%= posts[i].comment %> </h1>
-              <img class="img-fluid" src="<%= posts[i].image%>">
+              <img class="img-fluid mt-2" src="<%= posts[i].image%>">
             </a>
-            <form
-            class="col-1"
-            action="/post/likePost/<%= posts[i]._id %>?_method=PUT"
-            method="POST"
-          >
-          <button class="<%= posts[i].likedBy.some(id => String(id).trim() === user.id.trim()) ? 'btn btn-danger' : 'btn btn-outline-danger' %> fa fa-heart" type="submit"></button>
-          <span><%= posts[i].likes %></span>
-
-          </form>
+            
+            <div class="postStats d-flex">
+              <form class="col-1" action="/post/likePost/<%= posts[i]._id %>?_method=PUT" method="POST">
+                <button class="<%= posts[i].likedBy.some(id => String(id).trim() === user.id.trim()) ? 'btn btn-danger' : 'btn btn-outline-danger' %> fa fa-heart" type="submit"></button>
+                <span class="ml-1"><%= posts[i].likes %></span>
+              </form>
+              <div class="col-1 commentInfo">
+                <span class="commentIcon far fa-comment"></span>
+                <span><%= posts[i].postReplies.length %></span>
+              </div>
+            </div>
           </li>
         <% } %>
-        </ul>
+      </ul>
     </div>
-  </div>  
+  </div>
 </div>
 
 <script src="/js/main.js"></script>

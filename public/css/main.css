@@ -59,7 +59,7 @@ img{
     white-space: pre-line;
   }
  .platformTitle{
-    margin-top:50px;
+    padding-top:40px;
  }
  .profilePic{
     height:70px;
@@ -67,3 +67,6 @@ img{
     border-radius: 50%;
     
 }
+/* .postStats{
+    display: flex;
+} */

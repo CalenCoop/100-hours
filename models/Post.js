@@ -27,6 +27,9 @@ const PostSchema = new mongoose.Schema({
       ref: "User",
     }
   ],
+  postReplies: [{  
+    type: mongoose.Schema.Types.ObjectId,
+     ref: 'Reply' }],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

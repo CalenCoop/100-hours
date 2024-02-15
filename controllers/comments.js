@@ -1,4 +1,5 @@
 const Comment = require("../models/Comment");
+const Post = require('../models/Post')
 
 module.exports = {
 createComment: async (req, res) => {
@@ -11,6 +12,8 @@ createComment: async (req, res) => {
         createdBy: req.user.userName,
         createdById: req.user.id,
       };
+
+
       if (req.body.parentCommentId) {
         // Update parent comment with the new reply
         const parentComment = await Comment.findById(req.body.parentCommentId);
@@ -23,7 +26,14 @@ createComment: async (req, res) => {
         }
       } else{
         //create new comment
-        await Comment.create(commentData)
+        const newComment = await Comment.create(commentData)
+
+        const post = await Post.findById(req.params.id);
+        if(post){
+          post.postReplies.push(newComment._id);
+          await post.save();
+        }
+        
       }
       console.log("Comment has been added!");
       res.redirect("/post/"+req.params.id);
