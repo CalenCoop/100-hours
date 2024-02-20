@@ -40,14 +40,6 @@ module.exports = {
           console.log(err);
         }
       },
-      // getDiscover: async (req, res) => {
-      //   try {
-      //     const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      //     res.render("discover.ejs", { posts: posts, user: req.user });
-      //   } catch (err) {
-      //     console.log(err);
-      //   }
-      // },
      
       getPost: async (req, res) => {
         

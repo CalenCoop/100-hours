@@ -34,7 +34,7 @@
               </li>
               <li>
                 <form action="/upload/profilePicture/<%= user.id %>" enctype="multipart/form-data" method="POST">
-                  <div class="mb-3">
+                  <div class="mb-3 mt-3">
                     <label for="profilePicture" class="form-label">Change Profile Picture</label>
                     <input type="file" class="form-control" id="profilePicture" name="file" style="display: none;">
                     <label for="profilePicture" class="custom-file-upload">
@@ -44,6 +44,7 @@
                   <button type="submit" class="btn btn-primary">Upload</button>
                 </form>
               </li>
+              <a href="/logout" class="btn btn-primary mt-5">Logout</a>
           </ul>
         </div>
       </div>
@@ -52,14 +53,10 @@
 
       <div class="">
           <div class="profileInfo">
-            <!-- <img class = "profileBanner" src="<%= profile.profileBackground === 'defaultBackground.jpeg' ? '/imgs/defaultBackground.jpeg' : profile.profileBackground %>" alt="Profile Background"> -->
-          
-            <!-- <img class ="profilePic" src="<%= profile.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : profile.profilePicture %>" alt="Profile Picture"> -->
               <p><strong><%= profile.userName %></strong></p>
               <span>Following: <%= profile.following.length %></span>
               <span>Followers: <%= profile.followers.length %></span>
 
-              
               <% if(user.id !== profile.id){ %> 
               <form action="/followUser/<%= profile.id %>" method="POST">
                 <button type= "submit" class="btn btn-outline-primary">
@@ -73,8 +70,8 @@
               <% } %>
           
               <% if(user.id == profile._id){ %>
-                <p><strong>Email</strong>: <%= user.email %></p>
-                <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+                <!-- <p><strong>Email</strong>: <%= user.email %></p> -->
+                <!-- <a href="/logout" class=" btn btn-primary">Logout</a> -->
             </div>
             <div class="formContainer mt-5 mb-3">
               <form class = "postForm" action="/post/createPost" enctype="multipart/form-data" method="POST">
@@ -118,7 +115,7 @@
         </ul>
       </div>
         <div class="row justify-content-center mt-5">
-          <a class="btn btn-primary" href="/home">Return to Feed</a>
+          <a class="btn btn-primary" href="/home">Return to Home</a>
         </div>    
     </div>
   </div>

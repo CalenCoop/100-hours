@@ -1,8 +1,6 @@
 <%- include('partials/header') -%>
 <link href= "/css/main.css" rel="stylesheet" type="text/css">
 
-
-
 <div class="formContainer mt-5 mb-3">
   <form class = "postForm" action="/post/createPost" enctype="multipart/form-data" method="POST">
     <div class="mb-3">
@@ -37,14 +35,16 @@
               <img class="img-fluid mt-2" src="<%= posts[i].image%>">
             </a>
             
-            <div class="postStats d-flex">
-              <form class="col-1" action="/post/likePost/<%= posts[i]._id %>?_method=PUT" method="POST">
+            <div class="postStats d-flex mt-2">
+              <div class="likeInfo d-flex">
+              <form class="" action="/post/likePost/<%= posts[i]._id %>?_method=PUT" method="POST">
                 <button class="<%= posts[i].likedBy.some(id => String(id).trim() === user.id.trim()) ? 'btn btn-danger' : 'btn btn-outline-danger' %> fa fa-heart" type="submit"></button>
                 <span class="ml-1"><%= posts[i].likes %></span>
               </form>
-              <div class="col-1 commentInfo">
+              </div>
+              <div class="commentInfo col-1 d-flex">
                 <span class="commentIcon far fa-comment"></span>
-                <span><%= posts[i].postReplies.length %></span>
+                <span class="commentNum"><%= posts[i].postReplies.length %></span>
               </div>
             </div>
           </li>
