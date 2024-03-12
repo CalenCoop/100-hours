@@ -33,14 +33,17 @@
   <body>
     <header class="container">
       <div>
+        <% if(user) { %>
       <nav class="customNav fixed-top navbar-dark bg-dark pt-3">
         <ul class="navbarContainer">
-          <li><img class ="headerProfilePic" src="<%= user.profilePicture %>" alt="Profile Picture"><a href="/profile/<%= user.id %>"> Profile</a></li>
-          <li><a href="/home">For You</a></li>
+            <li><img class ="headerProfilePic" src="<%= user.profilePicture === 'defaultPicture.png' ? '/imgs/defaultPicture.png' : user.profilePicture %>" alt="Profile Picture"><a href="/profile/<%= user.id %>"> Profile</a></li>
+            
+            <li><a href="/home">For You</a></li>
           <li><a href="/following">Following</a></li>
           <li><a href="/connect">Connect</a></li>
         </ul>
       </nav>
+      <% } %>
       </div>
       <div class="platformInfo text-center">
           <h1 class="platformTitle"> GameHaven </h1>
